@@ -1,4 +1,5 @@
 import queue
+import time
 
 start = list(map(int,input().split()))
 goal = [1,2,3,4,5,6,7,8,0]
@@ -51,6 +52,8 @@ def bfs(start,goal):
             memo[tuple(new_puzzle.now)] = True
             q.put(new_puzzle)
 
+t1 = time.time()
+
 ans = bfs(start,goal)
 for rec in ans.past:
     print("{}回目".format(ans.past.index(rec)))
@@ -58,3 +61,7 @@ for rec in ans.past:
     for i in range(3):
         tmp[3*i:3*i+3] = "".join(tmp[3*i:3*i+3])
         print(*tmp[3*i:3*i+3])
+
+t2 = time.time()
+elapsed_time = t2 - t1
+print("実行時間 {}s".format(elapsed_time))
