@@ -10,6 +10,17 @@ class Puzzle:     # 経過を示したいのでそれをオブジェクトに保
         self.past = past
         self.past.append(now)
 
+"""
+ヒューリスティック関数f(x)としてマンハッタン距離をもちいる。
+"""
+def Manhattan(puzzle): 
+    dista = 0
+    for i,item in enumerate(puzzle):
+        now_row,now_col = i // 3 , i % 3
+        goal_row,goal_col = (item - 1) // 3, (item + 2) % 3
+        dista += abs(now_row-goal_row) + abs(now_col - goal_col)
+    return dista
+
 memo = {} #　一度なった盤面を記憶
 
 # 0の位置と、その位置に0があるときの移動可能位置を記述
@@ -24,7 +35,7 @@ move = {0:[1,3],
         8:[5,7]
 }
 
-def dfs(start,goal):
+def lower_bound(start,goal):
     puzzle = Puzzle(start, [])
     q = LifoQueue()
     q.put(puzzle)
@@ -53,7 +64,7 @@ def dfs(start,goal):
             if tuple(new_puzzle.now) in memo:
                 continue
 
-            if len(puzzle.past) > 31: #最大手は31手
+            if len(puzzle.past) + Manhattan(new_puzzle.now) > 31: #最大手は31手
                 continue
 
             if new_puzzle.now == goal:
@@ -65,7 +76,7 @@ def dfs(start,goal):
 t1 = time.time()
 
 
-ans, expa_ans = dfs(start,goal)
+ans, expa_ans = lower_bound(start,goal)
 if type(expa_ans) == int:
     for rec in ans.past:
         print("{}回目".format(ans.past.index(rec)))
