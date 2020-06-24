@@ -24,7 +24,7 @@ move = {0:[1,3],
         8:[5,7]
 }
 
-def bfs(start,goal):
+def dfs(start,goal):
     puzzle = Puzzle(start, [])
     q = LifoQueue()
     q.put(puzzle)
@@ -53,7 +53,6 @@ def bfs(start,goal):
 
             if new_puzzle.now == goal:
                 return new_puzzle
-                break
 
             memo[tuple(new_puzzle.now)] = True
             q.put(new_puzzle)
@@ -61,7 +60,7 @@ def bfs(start,goal):
 
 t1 = time.time()
 
-ans = bfs(start,goal)
+ans = dfs(start,goal)
 for rec in ans.past:
     print("{}回目".format(ans.past.index(rec)))
     tmp = [str(a) for a in rec]
