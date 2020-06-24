@@ -1,4 +1,4 @@
-# Solving 8 puzzle in several ways
+# Solve 8 puzzle in several ways
 Solve 8 puzzle by breadth-first search, depth-first serach, lower-bound search.
 
 # Breadth-first search (bfs.py)
