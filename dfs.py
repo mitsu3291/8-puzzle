@@ -29,7 +29,6 @@ def dfs(start,goal):
     q = LifoQueue()
     q.put(puzzle)
     memo[tuple(puzzle.now)] = True
-    cnt = 0
     expa = 0
 
     def new(puzzle, zero_posi, zero_neigh):
@@ -49,8 +48,7 @@ def dfs(start,goal):
             if tuple(new_puzzle.now) in memo:
                 continue
 
-            if cnt >= 31:
-                cnt = 0
+            if len(puzzle.past) > 31: #最大手は31手
                 continue
 
             if new_puzzle.now == goal:
@@ -58,7 +56,6 @@ def dfs(start,goal):
 
             memo[tuple(new_puzzle.now)] = True
             q.put(new_puzzle)
-            cnt += 1
 
 t1 = time.time()
 
