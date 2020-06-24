@@ -2,7 +2,10 @@
 Solve 8 puzzle by breadth-first search and depth-first serach.
 
 # Breadth-first search (bfs.py)
-considered the cost of each step is 1.
+Considered the cost of each step is 1.
 
 # Depth-first serach (dfs.py)
-limited the depth considering the maximum number of moves is 31.
+Limited the depth considering the maximum number of moves is 31.
+
+# example.py
+You look at example.py and will know how to use this program. 
