@@ -54,4 +54,11 @@
 
 
 real shortest path is 10,too
+
+#example1
+8 3 5 2 1 6 4 0 7
+#example2
+6 3 2 0 1 5 7 4 8
+#example3
+8 3 5 1 7 0 4 2 6
 """
