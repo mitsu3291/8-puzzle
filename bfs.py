@@ -29,6 +29,7 @@ def bfs(start,goal):
     q = queue.Queue()
     q.put(puzzle)
     memo[tuple(puzzle.now)] = True
+    expa = 0
 
     def new(puzzle, zero_posi, zero_neigh):
         new_puzzle = puzzle[:]
@@ -42,21 +43,22 @@ def bfs(start,goal):
         for zero_neigh in move[zero_posi]:
             newtmp = new(puzzle.now, zero_posi, zero_neigh)
             new_puzzle = Puzzle(newtmp, puzzle.past[:])
+            expa += 1
             
             if tuple(new_puzzle.now) in memo:
                 continue
 
             if new_puzzle.now == goal:
-                return new_puzzle
+                return new_puzzle, expa
 
             memo[tuple(new_puzzle.now)] = True
             q.put(new_puzzle)
 
 t1 = time.time()
 
-ans = bfs(start,goal)
+ans, expa = bfs(start,goal)
 for rec in ans.past:
-    print("{}回目".format(ans.past.index(rec)))
+    print("{}手目".format(ans.past.index(rec)))
     tmp = [str(a) for a in rec]
     for i in range(3):
         tmp[3*i:3*i+3] = "".join(tmp[3*i:3*i+3])
@@ -65,3 +67,4 @@ for rec in ans.past:
 t2 = time.time()
 elapsed_time = t2 - t1
 print("実行時間 {}s".format(elapsed_time))
+print("ノードの展開回数 {}回".format(expa))

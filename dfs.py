@@ -30,6 +30,7 @@ def dfs(start,goal):
     q.put(puzzle)
     memo[tuple(puzzle.now)] = True
     cnt = 0
+    expa = 0
 
     def new(puzzle, zero_posi, zero_neigh):
         new_puzzle = puzzle[:]
@@ -43,6 +44,7 @@ def dfs(start,goal):
         for zero_neigh in move[zero_posi]:
             newtmp = new(puzzle.now, zero_posi, zero_neigh)
             new_puzzle = Puzzle(newtmp, puzzle.past[:])
+            expa += 1
             
             if tuple(new_puzzle.now) in memo:
                 continue
@@ -52,7 +54,7 @@ def dfs(start,goal):
                 continue
 
             if new_puzzle.now == goal:
-                return new_puzzle
+                return new_puzzle, expa
 
             memo[tuple(new_puzzle.now)] = True
             q.put(new_puzzle)
@@ -60,7 +62,7 @@ def dfs(start,goal):
 
 t1 = time.time()
 
-ans = dfs(start,goal)
+ans, expa= dfs(start,goal)
 for rec in ans.past:
     print("{}回目".format(ans.past.index(rec)))
     tmp = [str(a) for a in rec]
@@ -71,3 +73,4 @@ for rec in ans.past:
 t2 = time.time()
 elapsed_time = t2 - t1
 print("実行時間 {}s".format(elapsed_time))
+print("ノードの展開回数 {}回".format(expa))
