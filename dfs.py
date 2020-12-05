@@ -45,11 +45,6 @@ def dfs(start,goal):
             new_puzzle = Puzzle(newtmp, puzzle.past[:])
             expa += 1
             
-            if expa == 77777:
-                tmp = 0
-                ans = "答えを見つけるには時間がかかりすぎてしまいます。"
-                return tmp, ans
-
             if tuple(new_puzzle.now) in memo:
                 continue
 
@@ -64,19 +59,19 @@ def dfs(start,goal):
 
 t1 = time.time()
 
-
-ans, expa_ans = dfs(start,goal)
-if type(expa_ans) == int:
-    for rec in ans.past:
-        print("{}回目".format(ans.past.index(rec)))
-        tmp = [str(a) for a in rec]
-        for i in range(3):
-            tmp[3*i:3*i+3] = "".join(tmp[3*i:3*i+3])
-            print(*tmp[3*i:3*i+3])
-    t2 = time.time()
-    elapsed_time = t2 - t1
-    print("実行時間 {}s".format(elapsed_time))
-    print("ノードの展開回数 {}回".format(expa_ans))
+if dfs(start,goal) == True:
+    ans, expa = dfs(start,goal)
+    if type(expa) == int:
+        for rec in ans.past:
+            print("{}回目".format(ans.past.index(rec)))
+            tmp = [str(a) for a in rec]
+            for i in range(3):
+                tmp[3*i:3*i+3] = "".join(tmp[3*i:3*i+3])
+                print(*tmp[3*i:3*i+3])
+        t2 = time.time()
+        elapsed_time = t2 - t1
+        print("実行時間 {}s".format(elapsed_time))
+        print("ノードの展開回数 {}回".format(expa))
 
 else:
-    print(expa_ans)
+    print("答えを見つけるには時間がかかりすぎてしまいます。")
